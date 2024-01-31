@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code 110 consumer Data entry from</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.1/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        .roboto_condensed{
+            font-family: "Roboto Condensed", sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <header class="container mx-auto roboto_condensed">
+            <h3 class="bg-slate-300 text-center text-3xl mt-3 pt-4 pb-4">Consumer Data Entry From</h3>
+
+            <div class="mt-3 text-center bg-slate-300 border-solid border-2 border-indigo-600">
+                <div class="pl-4 mt-2 pr-4">
+                    <label class="text-2xl">Consumer Name</label><br>
+                    <input type="text" id="consumerName" placeholder="Enter consumer name" class="input input-bordered input-success w-full max-w-2xl mt-3" />
+                </div>
+                
+                <div class="pl-4 mt-2 pr-4">
+                    <label class="text-2xl">Consumer Address</label><br>
+                    <input type="text" id="consumerAddress" placeholder="Enter consumer address" class="input input-bordered input-success w-full max-w-2xl mt-3" />
+                </div>
+
+                <div class="pl-4 mt-2 pr-4">
+                    <label class="text-2xl">Account No</label><br>
+                    <input type="text" id="consumerAccount" placeholder="Enter consumer account no" class="input input-bordered input-success w-full max-w-2xl mt-3" />
+                </div>
+
+                <div class="pl-4 mt-2 pr-4">
+                    <label class="text-2xl">Meter no</label><br>
+                    <input type="text" id="consumerMeter" placeholder="Enter meter no" class="input input-bordered input-success w-full max-w-2xl mt-3" />
+                </div>
+                <div class="pl-4 mt-2 pr-4">
+                    <label class="text-2xl">Category</label><br>
+                    <input type="text" id="consumerCategory" placeholder="Domestic or commercial" class="input input-bordered input-success w-full max-w-2xl mt-3" />
+                </div>
+
+                <div class="pl-4 mt-2 pr-4">
+                    <label class="text-2xl">Book & Page no</label><br>
+                    <input type="text" id="consumerPage" placeholder="Enter book and page no" class="input input-bordered input-success w-full max-w-2xl mt-3" />
+                </div>
+
+                <button class="btn btn-success w-full max-w-xs mt-4 mb-4" id="consumerBtn">SUBMIT</button>
+            </div>
+
+
+            
+        </header>
+        
+    </section>
+    
+
+
+
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+        //import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBCJUd2lvp9Lr5hDaqnj4FDwvQ4q4G9jkw",
+          authDomain: "dwasa-personal.firebaseapp.com",
+          databaseURL: "https://dwasa-personal-default-rtdb.firebaseio.com",
+          projectId: "dwasa-personal",
+          storageBucket: "dwasa-personal.appspot.com",
+          messagingSenderId: "36840060277",
+          appId: "1:36840060277:web:ed221ff37d92d46833cf3c",
+          measurementId: "G-LS2089KPEV"
+        };
+      
+
+        const app = initializeApp(firebaseConfig);
+        // const analytics = getAnalytics(app);
+
+        import {getDatabase, ref, child, get, set, update, remove} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+        const db = getDatabase();
+
+
+        let consumerName = document.getElementById('consumerName');
+        let consumerAddress = document.getElementById('consumerAddress');
+        let consumerAccount = document.getElementById('consumerAccount');
+        let consumerMeter = document.getElementById('consumerMeter');
+        let consumerCategory = document.getElementById('consumerCategory');
+        let consumerPage = document.getElementById('consumerPage');
+
+        let consumerBtn = document.getElementById('consumerBtn');
+
+
+        function AddData(){
+            set(ref(db, 'Code_110/' + consumerAccount.value), {
+                ConsumerName: consumerName.value,
+                ConsumerAddress: consumerAddress.value,
+                ConsumerAccount: consumerAccount.value,
+                ConsumerMeterNo: consumerMeter.value,
+                ConsumerCategory: consumerCategory.value,
+                ConsumerPage: consumerPage.value
+            }).then(()=>{
+                alert("Data Added Successfully");
+            }).catch(()=>{
+                alert("Unsuccessful");
+                console.log(error);
+            })
+        }
+
+        consumerBtn.addEventListener('click', AddData);
+      </script>
+</body>
+</html>
